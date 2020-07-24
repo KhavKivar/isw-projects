@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,21 +58,53 @@ public class EquipoController {
 	}
 	
 	
+	
+	
 	@DeleteMapping("/delete/{id}")
 	public String RemoveEquipo(@PathVariable int id) {
 		equipoService.RemoveEquipo(Long.valueOf(id));
 		return "Ok";		
 	}
+
+	@PostMapping("/init")
+	public void Init(){
+		Persona p = new Persona((long)1,"romina","vasquez",123,"enfermera",1,null);
+		Persona p2 = new Persona((long)2,"alexis","vasquez",124,"medico general",1,null);
+		Persona r1 = personaService.SavePersona(p);
+		Persona r2 = personaService.SavePersona(p2);
+		Equipo neq = new Equipo();
+		Set<Persona>  personas = new HashSet<>();
+		personas.add(r1);
+		personas.add(r2);
+		neq.setNameEquipo("xx");
+		neq.setPersonas(personas);
+		equipoService.SaveOrUpdate(neq);		
+		
+	}
+	
+	
+	@GetMapping("/view/{id}")
+	public ResponseEntity<Equipo> View_Equipo(@PathVariable int id){
+		return new ResponseEntity<Equipo>( equipoService.findById(Long.valueOf(id)).get(),HttpStatus.CREATED);
+		
+	}
+	
+	@GetMapping("/searchByName/{name}")
+	public ResponseEntity<Equipo> Search_Equipo(@PathVariable String name){
+		return new ResponseEntity<Equipo>( equipoService.findByName(name),HttpStatus.CREATED);
+		
+	}
 	
 	
 	
-	
-	@PostMapping("/all")
+	@GetMapping("/all")
 	public  @ResponseBody List<Equipo> allEquipo(){
 		List<Equipo> allEq= new ArrayList<>();
 		equipoService.listAll().forEach( (eq)-> {allEq.add(eq);  } );
 		return allEq;
 	}
+	
+	
 	
 	
 	

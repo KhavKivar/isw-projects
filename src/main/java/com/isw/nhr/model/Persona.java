@@ -12,91 +12,124 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "persona")
+
 public class Persona {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id_persona")
-	private long IdPersona;
-	private String Nombre;
-	private String Apellido;
-	
-	private int Identificador;
-	
-	private String Especializacion;
-	private int Estado;
-	
-	@ManyToMany(mappedBy = "Personas")
-	private Set<Equipo> ListaEq = new HashSet<>();
+	private long idPersona;
 	
 	
+	private String nombre;
+	private String apellido;
+	private int identificador;
+	private String especializacion;
+	private int estado;
 	
 	
-	public Persona(String nombre, String apellido, int identificador, String especializacion, int estado) {
+	@ManyToMany()
+	private Set<Equipo> listaEquipos = new HashSet<>();
+
+	
+	
+	
+	public Persona() {
+		
+	}
+	
+	
+	
+
+	public Persona(long idPersona, String nombre, String apellido, int identificador, String especializacion,
+			int estado, Set<Equipo> listaEquipos) {
 		super();
-		Nombre = nombre;
-		Apellido = apellido;
-		Identificador = identificador;
-		Especializacion = especializacion;
-		Estado = estado;
+		this.idPersona = idPersona;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.identificador = identificador;
+		this.especializacion = especializacion;
+		this.estado = estado;
+		this.listaEquipos = listaEquipos;
 	}
 
-
-	public int getIdentificador() {
-		return Identificador;
-	}
-
-
-	public void setIdentificador(int identificador) {
-		Identificador = identificador;
-	}
-
-
-	public Persona() {}
-	
-	
-	
 
 
 
 	public long getIdPersona() {
-		return IdPersona;
+		return idPersona;
 	}
 
 
 	public void setIdPersona(long idPersona) {
-		IdPersona = idPersona;
+		this.idPersona = idPersona;
 	}
 
 
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
+
+
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
+
+
 	public String getApellido() {
-		return Apellido;
+		return apellido;
 	}
+
+
 	public void setApellido(String apellido) {
-		Apellido = apellido;
+		this.apellido = apellido;
 	}
-	
-	
-	
+
+
+	public int getIdentificador() {
+		return identificador;
+	}
+
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
+
+
 	public String getEspecializacion() {
-		return Especializacion;
+		return especializacion;
 	}
+
+
 	public void setEspecializacion(String especializacion) {
-		Especializacion = especializacion;
+		this.especializacion = especializacion;
 	}
+
+
 	public int getEstado() {
-		return Estado;
+		return estado;
 	}
+
+
 	public void setEstado(int estado) {
-		Estado = estado;
+		this.estado = estado;
 	}
+
+
+	public Set<Equipo> getListaEquipos() {
+		return listaEquipos;
+	}
+
+
+	public void setListaEquipos(Set<Equipo> listaEquipos) {
+		this.listaEquipos = listaEquipos;
+	}
+	
+		
+	
 	
 	
 	

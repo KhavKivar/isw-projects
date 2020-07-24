@@ -40,8 +40,8 @@ public class PersonaService {
 		while(it.hasNext()) {
 			Persona aux = it.next();
 			if(identificador == aux.getIdentificador()) {
-				output = new Persona(aux.getNombre(),aux.getApellido(),aux.getIdentificador(),
-						aux.getEspecializacion(),aux.getEstado());
+				output = new Persona(aux.getIdPersona(),aux.getNombre(),aux.getApellido(),aux.getIdentificador(),
+						aux.getEspecializacion(),aux.getEstado(),aux.getListaEquipos());
 				output.setIdPersona(aux.getIdPersona());
 			}
 		}

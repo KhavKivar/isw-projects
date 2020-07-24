@@ -1,11 +1,13 @@
 package com.isw.nhr.services;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isw.nhr.model.Equipo;
+import com.isw.nhr.model.Persona;
 import com.isw.nhr.repository.EquipoRepository;
 
 
@@ -26,5 +28,27 @@ public class EquipoService {
 			equipoRepository.deleteById(id);
 			
 		}
-
+		
+		public Optional<Equipo> findById(Long id) {
+			return equipoRepository.findById(id);
+		}
+		
+		public Equipo findByName(String name) {
+			Iterator<Equipo> it = equipoRepository.findAll().iterator();
+			Equipo equipo = null;
+			
+			while(it.hasNext()) {
+				Equipo aux = it.next();
+				if(aux.getNameEquipo().equals(name)) {
+					equipo = new Equipo();
+					equipo.setIdEquipo(aux.getIdEquipo());
+					equipo.setNameEquipo(aux.getNameEquipo());
+					equipo.setPersonas(aux.getPersonas());
+					equipo.setReservas(aux.getReservas());
+					equipo.setSolicitudes(aux.getSolicitudes());
+				}
+				
+			}
+			return equipo;
+		}
 }
