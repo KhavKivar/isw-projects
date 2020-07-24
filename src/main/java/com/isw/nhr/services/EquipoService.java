@@ -13,6 +13,8 @@ import com.isw.nhr.repository.EquipoRepository;
 public class EquipoService {
 		@Autowired
 		private EquipoRepository equipoRepository;
+		
+		
 		public Equipo SaveOrUpdate(Equipo equipo) {
 			return equipoRepository.save(equipo);
 		}

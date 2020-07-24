@@ -37,51 +37,68 @@ public class EquipoController {
 	
 	@PostMapping("")
 	public ResponseEntity<Equipo> addEquipo(
-			@RequestParam("ListaPersonas") List<String> IdPersonas){
-		Set<Persona>  personas =new HashSet<>();
-		for(String id:IdPersonas) {
-			Optional<Persona> p = personaService.FindPersona(Long.valueOf(id));
+			@RequestParam("Id") List<String> Ids,@RequestParam("Name") String name ){
+			
+		Set<Persona>  personas = new HashSet<>();
+		for(String id:Ids) {
+			Persona p = personaService.FindByIdentificador(Long.valueOf(id));
 			if(p !=null) {
-				personas.add(p.get());
+				personas.add(p);
 			}
 		}
+		
 		Equipo neq = new Equipo();
-		neq.setListaP(personas);
-		Equipo eq = equipoService.SaveOrUpdate(neq);
-		return new ResponseEntity<Equipo>(eq,HttpStatus.CREATED);
+		neq.setPersonas(personas);
+		neq.setNameEquipo(name);
+		equipoService.SaveOrUpdate(neq);
+		return new ResponseEntity<Equipo>(neq,HttpStatus.CREATED);
+		
 
 	}
+	
+	
 	@DeleteMapping("/delete/{id}")
 	public String RemoveEquipo(@PathVariable int id) {
 		equipoService.RemoveEquipo(Long.valueOf(id));
 		return "Ok";		
 	}
+	
+	
+	
+	
 	@PostMapping("/all")
 	public  @ResponseBody List<Equipo> allEquipo(){
 		List<Equipo> allEq= new ArrayList<>();
-	
 		equipoService.listAll().forEach( (eq)-> {allEq.add(eq);  } );
-
 		return allEq;
-		
-		
 	}
+	
+	
+	
+	
 	@PostMapping("/edit")
 	public ResponseEntity<Equipo> EditEquipo(
-			@RequestParam("ListaPersonas") List<String> IdPersonas,@RequestParam("Idequipo") int idequipo ){
+			@RequestParam("Id") List<String> Ids,@RequestParam("Name") String name,
+			@RequestParam("IdEquipo") String idEquipo
+			){
 		
-		Set<Persona>  personas =new HashSet<>();
-		for(String id:IdPersonas) {
-			Optional<Persona> p = personaService.FindPersona(Long.valueOf(id));
+		Set<Persona>  personas = new HashSet<>();
+		for(String id:Ids) {
+			Persona p = personaService.FindByIdentificador(Long.valueOf(id));
 			if(p !=null) {
-				personas.add(p.get());
+				personas.add(p);
 			}
 		}
+		
 		Equipo neq = new Equipo();
-		neq.setEquipoId(idequipo);
-		neq.setListaP(personas);
-		Equipo eq = equipoService.SaveOrUpdate(neq);
-		return new ResponseEntity<Equipo>(eq,HttpStatus.CREATED);
+		neq.setIdEquipo(Long.valueOf(idEquipo));
+		neq.setNameEquipo(name);
+		neq.setPersonas(personas);
+		
+		equipoService.SaveOrUpdate(neq);
+		
+		
+		return new ResponseEntity<Equipo>(neq,HttpStatus.CREATED);
 
 	}
 		

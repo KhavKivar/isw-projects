@@ -17,39 +17,57 @@ import javax.persistence.Table;
 public class Persona {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="persona_id")
-	private long PersonaId;
+	@Column(name="id_persona")
+	private long IdPersona;
 	private String Nombre;
 	private String Apellido;
-	private long Dau;
+	
+	private int Identificador;
+	
 	private String Especializacion;
 	private int Estado;
 	
-	@ManyToMany(mappedBy = "ListaP")
+	@ManyToMany(mappedBy = "Personas")
 	private Set<Equipo> ListaEq = new HashSet<>();
 	
 	
 	
-	public Persona(String nombre, String apellido, long dau, String especializacion, int estado) {
+	
+	public Persona(String nombre, String apellido, int identificador, String especializacion, int estado) {
 		super();
 		Nombre = nombre;
 		Apellido = apellido;
-		Dau = dau;
+		Identificador = identificador;
 		Especializacion = especializacion;
 		Estado = estado;
 	}
-	
+
+
+	public int getIdentificador() {
+		return Identificador;
+	}
+
+
+	public void setIdentificador(int identificador) {
+		Identificador = identificador;
+	}
+
+
 	public Persona() {}
 	
 	
-	public long getPersonaId() {
-		return PersonaId;
+	
+
+
+
+	public long getIdPersona() {
+		return IdPersona;
 	}
 
-	public void setPersonaId(long personaId) {
-		PersonaId = personaId;
-	}
 
+	public void setIdPersona(long idPersona) {
+		IdPersona = idPersona;
+	}
 
 
 	public String getNombre() {
@@ -64,12 +82,9 @@ public class Persona {
 	public void setApellido(String apellido) {
 		Apellido = apellido;
 	}
-	public long getDau() {
-		return Dau;
-	}
-	public void setDau(long dau) {
-		Dau = dau;
-	}
+	
+	
+	
 	public String getEspecializacion() {
 		return Especializacion;
 	}

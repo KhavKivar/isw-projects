@@ -19,40 +19,56 @@ import javax.persistence.*;
 public class Equipo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="equipo_id")
-	private long EquipoId;
+	@Column(name="id_equipo")
+	private long IdEquipo;
+	
+	
 	
 	@ManyToMany
 	@JoinTable(
 			  name = "persona_equipo", 
-			  joinColumns = @JoinColumn(name = "equipo_id",referencedColumnName = "equipo_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "persona_id",referencedColumnName = "persona_id") )
+			  joinColumns = @JoinColumn(name = "id_equipo",referencedColumnName = "id_equipo"), 
+			  inverseJoinColumns = @JoinColumn(name = "id_persona",referencedColumnName = "id_persona") )
 	
 	
-	private Set<Persona> ListaP =new HashSet<>();
+	private Set<Persona> Personas = new HashSet<>();
 
-	public long getEquipoId() {
-		return EquipoId;
+	
+	
+	private String NameEquipo;
+	
+	
+		
+	
+	public String getNameEquipo() {
+		return NameEquipo;
 	}
 
-	public void setEquipoId(long equipoId) {
-		EquipoId = equipoId;
+	public void setNameEquipo(String nameEquipo) {
+		NameEquipo = nameEquipo;
 	}
 
-	public Set<Persona> getListaP() {
-		return ListaP;
+	public long getIdEquipo() {
+		return IdEquipo;
 	}
 
-	public void setListaP(Set<Persona> listaP) {
-		ListaP = listaP;
+	public void setIdEquipo(long idEquipo) {
+		IdEquipo = idEquipo;
 	}
 
-	public Equipo(Set<Persona> listaP) {
+	public Equipo(Set<Persona> personas) {
 		super();
-		ListaP = listaP;
+		Personas = personas;
 	}
-	
-	
+
+	public Set<Persona> getPersonas() {
+		return Personas;
+	}
+
+	public void setPersonas(Set<Persona> personas) {
+		Personas = personas;
+	}
+
 	public Equipo() {}
 	
 

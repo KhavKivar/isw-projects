@@ -1,5 +1,6 @@
 package com.isw.nhr.services;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,21 @@ public class PersonaService {
 		
 		return personaRepository.findById(id);
 	
+	}
+	
+	public Persona FindByIdentificador(long identificador) {
+		Iterator<Persona> it = personaRepository.findAll().iterator();
+		Persona output = null;
+		while(it.hasNext()) {
+			Persona aux = it.next();
+			if(identificador == aux.getIdentificador()) {
+				output = new Persona(aux.getNombre(),aux.getApellido(),aux.getIdentificador(),
+						aux.getEspecializacion(),aux.getEstado());
+				output.setIdPersona(aux.getIdPersona());
+			}
+		}
+		return output;
+		
 	}
 
 	
