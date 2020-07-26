@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isw.nhr.model.Equipo;
 import com.isw.nhr.model.Reserva;
-import com.isw.nhr.model.Solicitud;
 import com.isw.nhr.services.EquipoService;
 import com.isw.nhr.services.ReservaService;
 

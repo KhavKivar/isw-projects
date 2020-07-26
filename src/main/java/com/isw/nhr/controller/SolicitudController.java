@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 import com.isw.nhr.model.Equipo;
-import com.isw.nhr.model.Persona;
 import com.isw.nhr.model.Reserva;
 import com.isw.nhr.model.Solicitud;
 import com.isw.nhr.services.EquipoService;
@@ -92,6 +92,39 @@ public class SolicitudController {
 	public String RemoveSolicitud(@PathVariable int id) {
 		solicitudService.RemoveSolicitud(Long.valueOf(id));
 		return "Ok";		
+	}
+
+	@PostMapping("/accept/{id}")
+	public @ResponseBody Equipo aceptarSolicitud(@PathVariable int id){
+		//Hay buscar el equipo que tiene la id_solicitud
+		Iterator<Equipo> it = equipoService.listAll().iterator();
+		Equipo equipo = null;
+
+
+		while(it.hasNext()) {
+			Equipo aux = it.next();
+			for(Solicitud solicitud: aux.getSolicitudes()){
+				if(solicitud.getIdSolicitud() == id){
+					Set<Reserva> rer = aux.getReservas();
+					Reserva rrnew = new Reserva(solicitud.getFechaInicial(),solicitud.getFechaTermino());
+					rer.add(rrnew);
+					Set<Solicitud> sol = aux.getSolicitudes();
+					sol.remove(solicitud);
+					aux.setReservas(rer);
+					aux.setSolicitudes(sol);
+					equipoService.SaveOrUpdate(aux);
+					solicitudService.RemoveSolicitud(Long.valueOf(id));
+					equipo = aux;
+					break;
+
+				}
+
+			}
+		
+		}
+		
+
+		return equipo;
 	}
 	 
 	

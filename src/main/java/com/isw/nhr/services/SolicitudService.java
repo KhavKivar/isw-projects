@@ -3,9 +3,9 @@ package com.isw.nhr.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.isw.nhr.model.Reserva;
+
 import com.isw.nhr.model.Solicitud;
-import com.isw.nhr.repository.ReservaRepository;
+
 import com.isw.nhr.repository.SolicitudRepository;
 
 @Service

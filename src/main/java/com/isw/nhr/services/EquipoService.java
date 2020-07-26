@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isw.nhr.model.Equipo;
-import com.isw.nhr.model.Persona;
+
 import com.isw.nhr.repository.EquipoRepository;
 
 

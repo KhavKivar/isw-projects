@@ -1,23 +1,19 @@
 package com.isw.nhr.model;
 
-import java.sql.Date;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "solicitud")
@@ -42,7 +38,7 @@ public class Solicitud {
 	
 	
 	
-	public Solicitud(LocalDateTime fechaInicial, LocalDateTime fechaTermino) {
+	public Solicitud(final LocalDateTime fechaInicial, final LocalDateTime fechaTermino) {
 		super();
 		FechaInicial = fechaInicial;
 		FechaTermino = fechaTermino;
@@ -62,7 +58,7 @@ public class Solicitud {
 
 
 
-	public void setIdSolicitud(long idSolicitud) {
+	public void setIdSolicitud(final long idSolicitud) {
 		this.idSolicitud = idSolicitud;
 	}
 
@@ -80,7 +76,7 @@ public class Solicitud {
 
 
 
-	public void setFechaInicial(LocalDateTime fechaInicial) {
+	public void setFechaInicial(final LocalDateTime fechaInicial) {
 		FechaInicial = fechaInicial;
 	}
 
@@ -98,7 +94,7 @@ public class Solicitud {
 
 
 
-	public void setFechaTermino(LocalDateTime fechaTermino) {
+	public void setFechaTermino(final LocalDateTime fechaTermino) {
 		FechaTermino = fechaTermino;
 	}
 
