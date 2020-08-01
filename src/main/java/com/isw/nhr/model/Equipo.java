@@ -42,8 +42,51 @@ public class Equipo {
     @OneToMany(targetEntity=Reserva.class,cascade=CascadeType.ALL)
     @JoinColumn(name="id_equipo",referencedColumnName="id_equipo")
     private Set<Reserva> Reservas = new HashSet<>();
+    
+    
+    private String director="";
+    
+    private int integrantes=0;
+    
+    
 	
  
+	public String getDirector() {
+		return director;
+	}
+
+
+
+
+
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
+
+
+
+
+
+	public int getIntegrantes() {
+		return integrantes;
+	}
+
+
+
+
+
+
+	public void setIntegrantes(int integrantes) {
+		this.integrantes = integrantes;
+	}
+
+
+
+
+
+
 	public Equipo() {}
 
 	
@@ -91,11 +134,20 @@ public class Equipo {
 
 
 
-	public Equipo(long idEquipo, Set<Persona> personas, String nameEquipo) {
+	
+
+
+
+
+	public Equipo(String nameEquipo, Set<Persona> personas, Set<Solicitud> solicitudes, Set<Reserva> reservas,
+			String director, int integrantes) {
 		super();
-		this.idEquipo = idEquipo;
-		this.personas = personas;
 		this.nameEquipo = nameEquipo;
+		this.personas = personas;
+		Solicitudes = solicitudes;
+		Reservas = reservas;
+		this.director = director;
+		this.integrantes = integrantes;
 	}
 
 
