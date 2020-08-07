@@ -42,8 +42,8 @@ public class EquipoController {
 	public ResponseEntity<Equipo> addEquipoNew(@RequestBody InputEquipo inputs){
 		int c=0;
 		Set<Persona>  personas = new HashSet<>();
-		for(InputEquipoAux input:inputs.getIds()){
-			Persona p = personaService.FindByIdentificador(Long.valueOf(input.getId()));
+		for(String input:inputs.getIds()){
+			Persona p = personaService.FindByIdentificador(Long.valueOf(input));
 			c++;
 			if(p !=null) {
 				personas.add(p);
@@ -110,8 +110,8 @@ public class EquipoController {
 		
 		int c=0;
 		Set<Persona>  personas = new HashSet<>();
-		for(InputEquipoAux input:inputs.getIds()){
-			Persona p = personaService.FindByIdentificador(Long.valueOf(input.getId()));
+		for(String input:inputs.getIds()){
+			Persona p = personaService.FindByIdentificador(Long.valueOf(input));
 			c++;
 			if(p !=null) {
 				personas.add(p);
@@ -123,6 +123,8 @@ public class EquipoController {
 		x.setPersonas(personas);
 		x.setDirector(inputs.getDirector());
 		x.setNameEquipo(inputs.getNameEquipo());
+		
+		
 		return new ResponseEntity<Equipo>(equipoService.SaveOrUpdate(x),HttpStatus.CREATED);
 
 	}

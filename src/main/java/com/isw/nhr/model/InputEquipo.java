@@ -6,7 +6,7 @@ import java.util.List;
 public class InputEquipo {
 	
 	
-	List<InputEquipoAux> ids = new ArrayList<>();
+	List<String> ids = new ArrayList<>();
 	
 	
 	private String nameEquipo;
@@ -15,12 +15,13 @@ public class InputEquipo {
 
 
 	
+    
 
-	public List<InputEquipoAux> getIds() {
+	public List<String> getIds() {
 		return ids;
 	}
 
-	public void setIds(List<InputEquipoAux> ids) {
+	public void setIds(List<String> ids) {
 		this.ids = ids;
 	}
 
