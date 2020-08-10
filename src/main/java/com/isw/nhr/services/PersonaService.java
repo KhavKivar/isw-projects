@@ -18,6 +18,10 @@ public class PersonaService {
 	@Autowired
 	private PersonaRepository personaRepository;
 	
+	public void RemovePersona(Long id) {
+		personaRepository.deleteById(id);
+	}
+	
 	
 	public Persona SavePersona(Persona persona) {
 		return personaRepository.save(persona);
